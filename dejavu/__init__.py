@@ -39,7 +39,7 @@ class Dejavu(object):
         self.songs = self.db.get_songs()
         self.songhashes_set = set()  # to know which ones we've computed before
         for song in self.songs:
-            song_hash = song[Database.FIELD_FILE_SHA1]
+            song_hash = song[2] #[Database.FIELD_FILE_SHA1]
             self.songhashes_set.add(song_hash)
 
     def fingerprint_directory(self, path, extensions, nprocesses=None):
@@ -145,7 +145,7 @@ class Dejavu(object):
         song = self.db.get_song_by_id(song_id)
         if song:
             # TODO: Clarify what `get_song_by_id` should return.
-            songname = song.get(Dejavu.SONG_NAME, None)
+            songname = song[0] #.get(Dejavu.SONG_NAME, None)
         else:
             return None
 
@@ -159,7 +159,7 @@ class Dejavu(object):
             Dejavu.CONFIDENCE : largest_count,
             Dejavu.OFFSET : int(largest),
             Dejavu.OFFSET_SECS : nseconds,
-            Database.FIELD_FILE_SHA1 : song.get(Database.FIELD_FILE_SHA1, None),}
+            Database.FIELD_FILE_SHA1 : song[1]} #.get(Database.FIELD_FILE_SHA1, None),}
         return song
 
     def recognize(self, recognizer, *options, **kwoptions):

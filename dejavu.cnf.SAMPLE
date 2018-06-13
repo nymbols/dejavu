@@ -1,8 +1,9 @@
 {
     "database": {
         "host": "127.0.0.1",
+        "port":8889,
         "user": "root",
-        "passwd": "", 
-        "db": "dejavu"
+        "passwd": "root", 
+        "db": "djv"
     }
 }

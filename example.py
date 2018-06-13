@@ -21,6 +21,7 @@ if __name__ == '__main__':
 	song = djv.recognize(FileRecognizer, "mp3/Sean-Fournier--Falling-For-You.mp3")
 	print "From file we recognized: %s\n" % song
 
+	print "play to mic"
 	# Or recognize audio from your microphone for `secs` seconds
 	secs = 5
 	song = djv.recognize(MicrophoneRecognizer, seconds=secs)

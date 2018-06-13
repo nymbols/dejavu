@@ -2,8 +2,8 @@ from __future__ import absolute_import
 from itertools import izip_longest
 import Queue
 
-import MySQLdb as mysql
-from MySQLdb.cursors import DictCursor
+import mysql.connector as mysql
+#from mysql.connector.cursors import DictCursor
 
 from dejavu.database import Database
 
@@ -214,7 +214,7 @@ class SQLDatabase(Database):
         """
         Return songs that have the fingerprinted flag set TRUE (1).
         """
-        with self.cursor(cursor_type=DictCursor) as cur:
+        with self.cursor() as cur: #(cursor_type=DictCursor)
             cur.execute(self.SELECT_SONGS)
             for row in cur:
                 yield row
@@ -223,7 +223,7 @@ class SQLDatabase(Database):
         """
         Returns song by its ID.
         """
-        with self.cursor(cursor_type=DictCursor) as cur:
+        with self.cursor() as cur: #(cursor_type=DictCursor)
             cur.execute(self.SELECT_SONG, (sid,))
             return cur.fetchone()
 
@@ -335,7 +335,7 @@ class Cursor(object):
     """
     _cache = Queue.Queue(maxsize=5)
 
-    def __init__(self, cursor_type=mysql.cursors.Cursor, **options):
+    def __init__(self, **options): #(self, cursor_type=mysql.cursors.Cursor, **options):
         super(Cursor, self).__init__()
 
         try:
@@ -347,20 +347,20 @@ class Cursor(object):
             conn.ping(True)
 
         self.conn = conn
-        self.conn.autocommit(False)
-        self.cursor_type = cursor_type
+        #self.conn.autocommit(False)
+        #self.cursor_type = cursor_type
 
     @classmethod
     def clear_cache(cls):
         cls._cache = Queue.Queue(maxsize=5)
 
     def __enter__(self):
-        self.cursor = self.conn.cursor(self.cursor_type)
+        self.cursor = self.conn.cursor() #(self.cursor_type)
         return self.cursor
 
     def __exit__(self, extype, exvalue, traceback):
         # if we had a MySQL related error we try to rollback the cursor.
-        if extype is mysql.MySQLError:
+        if extype is mysql.Error: #.MySQLError:
             self.cursor.rollback()
 
         self.cursor.close()
