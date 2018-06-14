@@ -5,7 +5,7 @@ import Queue
 import mysql.connector as mysql
 #from mysql.connector.cursors import DictCursor
 
-from dejavu.database import Database
+from hym.database import Database
 
 
 class SQLDatabase(Database):

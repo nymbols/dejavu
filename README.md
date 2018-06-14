@@ -1,12 +1,14 @@
-dejavu
+Hym
 ==========
 
-Audio fingerprinting and recognition algorithm implemented in Python, see the explanation here:  
+Hym (pronounced Hum) is a fork of Dejavu an audio fingerprinting and recognition algorithm implemented in Python, see the explanation here:  
 [How it works](http://willdrevo.com/fingerprinting-and-audio-recognition-with-python/)
 
-Dejavu can memorize audio by listening to it once and fingerprinting it. Then by playing a song and recording microphone input, Dejavu attempts to match the audio against the fingerprints held in the database, returning the song being played. 
+I intend to improve it to recognize hums and multiple voices with background noise.
 
-Note that for voice recognition, Dejavu is not the right tool! Dejavu excels at recognition of exact signals with reasonable amounts of noise.
+Hym can memorize audio by listening to it once and fingerprinting it. Then by playing a song and recording microphone input, Dejavu attempts to match the audio against the fingerprints held in the database, returning the song being played. 
+
+Hym currently excels at recognition of exact signals with reasonable amounts of noise.
 
 ## Installation and Dependencies:
 
@@ -20,15 +22,15 @@ Second, you'll need to create a MySQL database where Dejavu can store fingerprin
 	
 	$ mysql -u root -p
 	Enter password: **********
-	mysql> CREATE DATABASE IF NOT EXISTS dejavu;
+	mysql> CREATE DATABASE IF NOT EXISTS hym;
 
 Now you're ready to start fingerprinting your audio collection! 
 
 ## Quickstart
 
 ```bash
-$ git clone https://github.com/worldveil/dejavu.git ./dejavu
-$ cd dejavu
+$ git clone https://github.com/nymbols/hym.git ./hym
+$ cd hym
 $ python example.py
 ```
 
@@ -39,10 +41,11 @@ Let's say we want to fingerprint all of July 2013's VA US Top 40 hits.
 Start by creating a Dejavu object with your configurations settings (Dejavu takes an ordinary Python dictionary for the settings).
 
 ```python
->>> from dejavu import Dejavu
+>>> from hym import Dejavu
 >>> config = {
 ...     "database": {
 ...         "host": "127.0.0.1",
+            "port": <MySQLport>,
 ...         "user": "root",
 ...         "passwd": <password above>, 
 ...         "db": <name of the database you created above>,
@@ -86,7 +89,7 @@ The following keys are optional:
 An example configuration is as follows:
 
 ```python
->>> from dejavu import Dejavu
+>>> from hym import Dejavu
 >>> config = {
 ...     "database": {
 ...         "host": "127.0.0.1",
@@ -129,7 +132,7 @@ $ python dejavu.py --recognize file sometrack.wav
 or in scripting, assuming you've already instantiated a Dejavu object: 
 
 ```python
->>> from dejavu.recognize import FileRecognizer
+>>> from hym.recognize import FileRecognizer
 >>> song = djv.recognize(FileRecognizer, "va_us_top_40/wav/Mirrors - Justin Timberlake.wav")
 ```
 
@@ -138,7 +141,7 @@ or in scripting, assuming you've already instantiated a Dejavu object:
 With scripting:
 
 ```python
->>> from dejavu.recognize import MicrophoneRecognizer
+>>> from hym.recognize import MicrophoneRecognizer
 >>> song = djv.recognize(MicrophoneRecognizer, seconds=10) # Defaults to 10 seconds.
 ```
 
@@ -167,7 +170,7 @@ An example script is given in `test_dejavu.sh`, shown below:
 
 ```bash
 #####################################
-### Dejavu example testing script ###
+### Hym example testing script ###
 #####################################
 
 ###########
@@ -176,7 +179,7 @@ rm -rf ./results ./temp_audio
 
 ###########
 # Fingerprint files of extension mp3 in the ./mp3 folder
-python dejavu.py --fingerprint ./mp3/ mp3
+python hym.py --fingerprint ./mp3/ mp3
 
 ##########
 # Run a test suite on the ./mp3 folder by extracting 1, 2, 3, 4, and 5 

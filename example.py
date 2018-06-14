@@ -2,8 +2,8 @@ import warnings
 import json
 warnings.filterwarnings("ignore")
 
-from dejavu import Dejavu
-from dejavu.recognize import FileRecognizer, MicrophoneRecognizer
+from hym import Dejavu
+from hym.recognize import FileRecognizer, MicrophoneRecognizer
 
 # load config from a JSON file (or anything outputting a python dictionary)
 with open("dejavu.cnf.SAMPLE") as f:

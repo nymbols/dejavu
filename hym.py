@@ -6,9 +6,9 @@ import json
 import warnings
 import argparse
 
-from dejavu import Dejavu
-from dejavu.recognize import FileRecognizer
-from dejavu.recognize import MicrophoneRecognizer
+from hym import Dejavu
+from hym.recognize import FileRecognizer
+from hym.recognize import MicrophoneRecognizer
 from argparse import RawTextHelpFormatter
 
 warnings.filterwarnings("ignore")

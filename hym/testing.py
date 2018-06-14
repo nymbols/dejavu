@@ -1,8 +1,8 @@
 from __future__ import division
 from pydub import AudioSegment
-from dejavu.decoder import path_to_songname
-from dejavu import Dejavu
-from dejavu.fingerprint import *
+from hym.decoder import path_to_songname
+from hym import Dejavu
+from hym.fingerprint import *
 import traceback
 import fnmatch
 import os, re, ast
